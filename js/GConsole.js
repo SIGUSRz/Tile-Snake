@@ -120,7 +120,7 @@ GConsole.prototype.looper = function(direction)
     self.timer = setInterval(function()
     {
         self.move(self.currentDirection);
-    },250);
+    },280);
 };
 
 //Pass attributes to HTML_Painter to draw on HTML

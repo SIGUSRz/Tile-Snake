@@ -70,7 +70,7 @@ IO_Manager.prototype.listen = function ()
     $(window).on('keyup', function(event)
     {
 
-        var minScrollTime = 80;
+        var minScrollTime = 100;
         var now = new Date().getTime();
 
         function processScroll(map,event)

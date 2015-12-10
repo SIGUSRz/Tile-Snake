@@ -5,4 +5,4 @@ This game is inspired by [2048 by gabrielecirulli](https://gabrielecirulli.githu
 
 With direct use of its css style and animation frame
 
-## [PLAY](http://htmlpreview.github.io/?https://github.com/ShawnZeng/Tile-Snake/blob/master/index.html)
+## [PLAY](http://htmlpreview.github.io/?https://github.com/sz1358/Tile-Snake/blob/master/index.html)

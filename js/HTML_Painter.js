@@ -12,7 +12,7 @@ HTML_Painter.prototype.actuate = function (grid, snakeBody,metadata)
     //Clear all the existing tile
     //All the tile have to be recreated in html
     $('#tile-container').empty();
-    self.addTile(metadata.food,null);
+    self.addTile(metadata.food);
     for(var i=0;i<snakeBody.length;i++)
     {
         self.processTile(snakeBody[i],metadata.direction);
@@ -39,15 +39,43 @@ HTML_Painter.prototype.processTile = function (tile,direction)
     {
         //Check if it's head and it's turning
         //When turning rotate the head
-        if($('.tile_'+position.x+'-'+position.y).hasClass('tile-0') && direction%2!==0)
+        if(tile.value===0)
         {
             //NOTE!!! Move the tile from old position to next position
-            $('.tile_'+position.x+'-'+position.y).css(
+            if(direction%2!==0)
+            {
+                $('.tile-0').css(
+                    {
+                        '-webkit-transform':'translate('+offset.left+'px,'+offset.top+'px) rotate(90deg)',
+                        '-moz-transform':'translate('+offset.left+'px,'+offset.top+'px) rotate(90deg)',
+                        'transform':'translate('+offset.left+'px,'+offset.top+'px) rotate(90deg)'
+                    });
+            }
+            else
+            {
+                $('.tile-0').css(
+                    {
+                        '-webkit-transform':'translate('+offset.left+'px,'+offset.top+'px)',
+                        '-moz-transform':'translate('+offset.left+'px,'+offset.top+'px)',
+                        'transform':'translate('+offset.left+'px,'+offset.top+'px)'
+                    });
+            }
+            $('.tile-0').addClass('tile_'+tile.x+'-'+tile.y);
+            $('.tile-0').removeClass('tile_'+position.x+'-'+position.y);
+            $('.tile-0').removeClass('tile-new');
+        }
+        else if(tile.value===1)
+        {
+            $('.tile-1').css(
                 {
-            '-webkit-transform':'translate('+offset.left+'px,'+offset.top+'px) rotate(90deg)',
-                '-moz-transform':'translate('+offset.left+'px,'+offset.top+'px) rotate(90deg)',
-                'transform':'translate('+offset.left+'px,'+offset.top+'px) rotate(90deg)'
-        });
+                    '-webkit-transform':'translate('+offset.left+'px,'+offset.top+'px)',
+                    '-moz-transform':'translate('+offset.left+'px,'+offset.top+'px)',
+                    'transform':'translate('+offset.left+'px,'+offset.top+'px)'
+                });
+            //Update the new position
+            $('.tile-1').addClass('tile_'+tile.x+'-'+tile.y);
+            $('.tile-1').removeClass('tile_'+position.x+'-'+position.y);
+            $('.tile-1').removeClass('tile-new');
         }
         else
         {
@@ -58,11 +86,11 @@ HTML_Painter.prototype.processTile = function (tile,direction)
                     '-moz-transform':'translate('+offset.left+'px,'+offset.top+'px)',
                     'transform':'translate('+offset.left+'px,'+offset.top+'px)'
                 });
+            $('.tile_'+position.x+'-'+position.y).addClass('tile_'+tile.x+'-'+tile.y);
+            $('.tile_'+tile.x+'-'+tile.y).removeClass('tile_'+position.x+'-'+position.y);
+            $('.tile_'+tile.x+'-'+tile.y).removeClass('tile-new');
         }
-        //Update the new position
-        $('.tile_'+position.x+'-'+position.y).addClass('tile_'+tile.x+'-'+tile.y);
-        $('.tile_'+tile.x+'-'+tile.y).removeClass('tile_'+position.x+'-'+position.y);
-        $('.tile_'+tile.x+'-'+tile.y).removeClass('tile-new');
+
         //The move of the snake body is completed.
     }
 };
